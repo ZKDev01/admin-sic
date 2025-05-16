@@ -6,6 +6,7 @@ import Block from 'pages/BlockUser.vue'
 import EmptyLayout from 'layouts/EmptyLayout.vue'
 import MainLayout from 'layouts/MainLayout.vue'
 import Error404 from 'pages/Error404.vue'
+import UserEdit from 'pages/UserEdit.vue'
 
 const routes = [
   {
@@ -22,6 +23,7 @@ const routes = [
       { path: 'user', name: 'User', component: User },
       { path: 'vpn', name: 'Vpn', component: Vpn },
       { path: 'block', name: 'Block', component: Block },
+      { path: 'user/edit/:id', name: 'user-edit', component: UserEdit },
     ],
   },
   {

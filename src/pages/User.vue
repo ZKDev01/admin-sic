@@ -32,6 +32,9 @@
           </q-btn>
         </q-card-actions>
         <q-separator class="q-my-md q-mx-md" />
+        <div v-if="errorMsg" class="row justify-center text-negative text-h6">
+          {{ errorMsg }}
+        </div>
         <div v-if="userData && !userData.inSystem" class="row justify-center text-h6">
           El usuario no está en el sistema
         </div>
@@ -49,6 +52,15 @@
                     {{ account.email }}
                   </q-item-label>
                 </q-item-section>
+                <q-item-section side>
+                  <q-btn
+                    color="primary"
+                    label="Modificar"
+                    @click="goToEdit(account.ci)"
+                    size="sm"
+                    dense
+                  />
+                </q-item-section>
               </q-item>
             </q-list>
           </q-card-section>
@@ -59,8 +71,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, type Ref } from 'vue'
-import { UserService } from 'src/services/user.service'
+import { defineComponent, ref, type Ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'UserPage',
@@ -69,22 +81,57 @@ export default defineComponent({
     const loadingSearch = ref(false)
     const userData: Ref<Record<string, unknown> | null> = ref(null)
     const userId = ref('')
+    const errorMsg = ref('')
 
-    const onSearch = async () => {
+    const router = useRouter()
+
+    // Lista predefinida de usuarios
+    const predefinedUsers = [
+      {
+        ci: '12345678',
+        email: 'usuario1@correo.com',
+        accountsDetails: [{ ci: '12345678', email: 'usuario1@correo.com' }],
+        inSystem: true,
+      },
+      {
+        ci: '87654321',
+        email: 'usuario2@correo.com',
+        accountsDetails: [{ ci: '87654321', email: 'usuario2@correo.com' }],
+        inSystem: true,
+      },
+    ]
+
+    // Computed para filtrar usuarios locales
+    const filteredUsers = computed(() => {
+      if (!userId.value.trim()) return []
+      const key = searchBy.value === 'email' ? 'email' : 'ci'
+      return predefinedUsers.filter((u) =>
+        u[key].toLowerCase().includes(userId.value.trim().toLowerCase()),
+      )
+    })
+
+    const onSearch = () => {
+      errorMsg.value = '' // Limpia el mensaje antes de buscar
+      userData.value = null
+
       if (!userId.value.trim()) {
-        console.warn('Debe ingresar un valor para la búsqueda.')
+        errorMsg.value = 'Debe ingresar un valor para la búsqueda.'
         return
       }
 
-      try {
-        loadingSearch.value = true
-        const key = searchBy.value === 'email' ? 'uid' : 'ci'
-        userData.value = await UserService.getUserInfo(key, userId.value)
-      } catch (error) {
-        console.error('Error al obtener los datos del usuario:', error)
-      } finally {
-        loadingSearch.value = false
+      // Busca en la lista local
+      const key = searchBy.value === 'email' ? 'email' : 'ci'
+      const localUser = predefinedUsers.find(
+        (u) => u[key].toLowerCase() === userId.value.trim().toLowerCase(),
+      )
+      if (localUser) {
+        userData.value = localUser
+        return
       }
+    }
+
+    const goToEdit = (ci: string) => {
+      void router.push({ name: 'user-edit', params: { id: ci } })
     }
 
     return {
@@ -93,6 +140,9 @@ export default defineComponent({
       onSearch,
       loadingSearch,
       searchBy,
+      filteredUsers,
+      errorMsg,
+      goToEdit,
     }
   },
 })
