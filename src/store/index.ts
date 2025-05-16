@@ -1,16 +1,10 @@
-import { createStore } from 'vuex' // <-- Usar createStore directo
-import type { AuthState } from './auth'
+import { createStore } from 'vuex'
 import auth from './auth'
 
-export interface AppState {
-  auth: AuthState
-}
-
-const store = createStore<AppState>({
+const store = createStore({
   modules: {
     auth,
   },
-  strict: !!process.env.DEBUGGING,
 })
 
 export default store

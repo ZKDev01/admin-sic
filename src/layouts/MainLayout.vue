@@ -44,7 +44,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, watchEffect } from 'vue'
-import { useStore } from 'vuex' // Si usas Vuex, sino cambia a Pinia
+import { useStore } from 'vuex' 
 import { useRouter } from 'vue-router'
 import EssentialLink from 'components/EssentialLink.vue'
 

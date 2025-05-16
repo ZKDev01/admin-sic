@@ -18,7 +18,7 @@ const routes = [
     path: '/',
     component: MainLayout,
     children: [
-      { path: '', name: 'Home', component: Index }, // Si querías `Home`, cámbialo aquí
+      { path: '', name: 'Home', component: Index },
       { path: 'user', name: 'User', component: User },
       { path: 'vpn', name: 'Vpn', component: Vpn },
       { path: 'block', name: 'Block', component: Block },

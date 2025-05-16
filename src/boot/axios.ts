@@ -1,9 +1,9 @@
 import type { AxiosInstance } from 'axios'
+import type { App } from 'vue'
 import axios from 'axios'
 import { boot } from 'quasar/wrappers'
 import { API_ESOURECES } from 'src/services/api_resources'
-import { Router } from 'src/router'
-
+import Router from 'src/router'
 import store from 'src/store'
 
 const axiosInstance = axios.create({
@@ -51,14 +51,14 @@ axiosInstance.interceptors.response.use(
     }
   },
 )
-declare module 'vue/types/vue' {
-  interface Vue {
+declare module 'vue' {
+  interface ComponentCustomProperties {
     $axios: AxiosInstance
   }
 }
 
-export default boot(({ Vue }) => {
-  Vue.prototype.$axios = axiosInstance
+export default boot(({ app }: { app: App }) => {
+  app.config.globalProperties.$axios = axiosInstance
 })
 
 export { axiosInstance }

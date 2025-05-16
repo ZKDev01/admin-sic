@@ -1,7 +1,7 @@
 import type { AppState } from 'src/store'
 import type { AuthState } from './state'
 import type { GetterTree } from 'vuex'
-import jwt_decode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 import { AuthService } from 'src/services/auth.service'
 
 interface SicJwt {
@@ -31,7 +31,7 @@ const getters: GetterTree<AuthState, AppState> = {
 
     let role = ''
     try {
-      role = jwt_decode<SicJwt>(localToken).role
+      role = jwtDecode<SicJwt>(localToken).role
     } catch {
       // TODO: Handle token decoding error
     }
