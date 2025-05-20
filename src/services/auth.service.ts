@@ -4,10 +4,20 @@ import { API_ESOURECES } from './api_resources'
 export interface LoginResponse {
   token: string
   tokenRefresh: string
+  user: {
+    id: string
+    roles: string[]
+  }
 }
 export interface LoginRequest {
   user: string
   password: string
+}
+export interface RegistrationRequest {
+  email: string
+  password: string
+  passwordConfirmation: string
+  role: string
 }
 
 export const ACCESS_TOKEN = 'access-token'
@@ -16,6 +26,11 @@ export const REFRESH_TOKEN = 'refresh-token'
 export const AuthService = {
   login: async function (data: LoginRequest) {
     const response = await axiosInstance.post<LoginResponse>(API_ESOURECES.LOGIN, data)
+    return response.data
+  },
+
+  register: async function (data: RegistrationRequest): Promise<LoginResponse> {
+    const response = await axiosInstance.post<LoginResponse>(API_ESOURECES.REGISTER, data)
     return response.data
   },
 

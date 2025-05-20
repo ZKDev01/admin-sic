@@ -51,6 +51,7 @@ axiosInstance.interceptors.response.use(
     }
   },
 )
+
 declare module 'vue' {
   interface ComponentCustomProperties {
     $axios: AxiosInstance

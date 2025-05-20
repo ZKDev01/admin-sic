@@ -1,9 +1,8 @@
 {
   "extends": "./.quasar/tsconfig.json",
   "compilerOptions": {
-    "types": [
-      "vue",
-      "vuex"
-    ]
+    "types": ["vue", "vuex"],
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
   }
 }

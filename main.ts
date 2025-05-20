@@ -1,8 +1,7 @@
 import { createApp } from 'vue'
 import { Quasar } from 'quasar'
-import store from 'src/store' // ✅ Asegúrate de que esta importación es correcta
-import router from 'src/router' // ✅ Asegúrate de que esta importación es correcta
-import App from 'src/App.vue'
+import store from 'src/store'
+import router from 'src/router'
 
 const app = createApp(App)
 app.use(store)

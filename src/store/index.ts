@@ -6,5 +6,8 @@ const store = createStore({
     auth,
   },
 })
+export function useStore() {
+  return store
+}
 
 export default store

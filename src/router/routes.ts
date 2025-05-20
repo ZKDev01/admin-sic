@@ -7,13 +7,21 @@ import EmptyLayout from 'layouts/EmptyLayout.vue'
 import MainLayout from 'layouts/MainLayout.vue'
 import Error404 from 'pages/Error404.vue'
 import UserEdit from 'pages/UserEdit.vue'
+import RegistrationPage from 'pages/RegistrationPage.vue'
 
 const routes = [
+  {
+    path: '/',
+    redirect: '/auth/login', // Redirección automática al login
+  },
   {
     path: '/auth',
     meta: { free: true },
     component: EmptyLayout,
-    children: [{ path: 'login', name: 'Login', component: Login }],
+    children: [
+      { path: 'login', name: 'Login', component: Login },
+      { path: 'register', name: 'Register', component: RegistrationPage },
+    ],
   },
   {
     path: '/',

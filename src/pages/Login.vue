@@ -12,7 +12,7 @@
             Sitio de Administración
           </q-card-section>
           <q-card-section class="row justify-center">
-            <q-img src="imgs/logo.png" style="width: 60%" />
+            <q-img src="public/img/logo.png" style="width: 60%" />
           </q-card-section>
           <q-card-section>
             <q-form @submit="onLogin" class="q-gutter-md">
@@ -45,6 +45,16 @@
                   color="primary"
                   :loading="loading"
                 />
+              </q-card-actions>
+              <!-- Nuevo: Enlace de registro -->
+              <q-card-actions class="q-mt-md justify-center">
+                <router-link
+                  to="/auth/register"
+                  class="text-primary text-weight-medium"
+                  style="text-decoration: none"
+                >
+                  ¿No tienes cuenta? Regístrate aquí
+                </router-link>
               </q-card-actions>
             </q-form>
           </q-card-section>
