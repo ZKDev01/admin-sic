@@ -50,6 +50,7 @@ import { useStore } from 'src/store/index'
 import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
 import type { AxiosError } from 'axios'
+import RoleSelector from 'components/RoleSelector.vue'
 
 const $q = useQuasar()
 const router = useRouter()

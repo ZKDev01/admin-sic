@@ -2,6 +2,7 @@ import Vuex from 'vuex'
 import auth from './auth'
 import type { AuthState } from './auth/state'
 import Vue from 'vue'
+import { createStore } from 'vuex'
 
 export interface AppState {
   auth: AuthState

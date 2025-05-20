@@ -8,6 +8,12 @@ const mutation: MutationTree<AuthState> = {
     state.tokenRefresh = credentials.tokenRefresh
     AuthService.setTokens(credentials.token, credentials.tokenRefresh)
   },
+  SET_USER(state, user: AuthUser) {
+    state.user = user
+  },
+  SET_AVAILABLE_ROLES(state, roles: string[]) {
+    state.availableRoles = roles
+  },
 
   CLEAR_DATA(state) {
     state.accessToken = null

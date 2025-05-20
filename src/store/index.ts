@@ -10,4 +10,4 @@ export function useStore() {
   return store
 }
 
-export default store
+export type Store = typeof store

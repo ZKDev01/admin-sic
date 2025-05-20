@@ -22,9 +22,7 @@ const getters: GetterTree<AuthState, AppState> = {
     return state.accessToken
   },
 
-  tokenRefresh: (state: AuthState): string | null => {
-    return state.tokenRefresh
-  },
+  tokenRefresh: (state: AuthState): string | null => state.tokenRefresh,
 
   role: (): string => {
     const localToken: string = AuthService.getAccessToken()
@@ -32,11 +30,16 @@ const getters: GetterTree<AuthState, AppState> = {
     let role = ''
     try {
       role = jwtDecode<SicJwt>(localToken).role
-    } catch {
-      // TODO: Handle token decoding error
+    } catch (error) {
+      console.error('Error decoding token:', error)
+      return ''
     }
     return role
   },
+
+  availableRoles: (state): string[] => state.availableRoles,
+
+  currentUser: (state): AuthState['user'] => state.user,
 }
 
 export default getters
